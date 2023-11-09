@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="irpt_loancontract_fcmt" language="groovy" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="0fa686cc-44c7-47b7-bee7-1c2836b6658d">
+	<property name="ireport.zoom" value="1.3310000000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="231"/>
+	<parameter name="as_membno" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="loantype_code" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="loan_docno" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\Administrator\\Desktop\\work\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT DISTINCT (MBUCFPRENAME.PRENAME_DESC+ MBMEMBMASTER.MEMB_NAME+' '+MBMEMBMASTER.MEMB_SURNAME) as MEMB_NAME  ,
+MBMEMBMASTER.MEMBER_NO,
+MBMEMBMASTER.MATE_NAME,
+CMCOOPCONSTANT.COOP_NAME,
+MBMEMBCONTACT.DESCRIPTION,
+MBMEMBCONTACT.REFMEMBER_ADDRESS,
+MBMEMBCONTACT.REFMEMBER_TEL,
+MBMEMBCONTACT.REFMEMBER_RELATION,
+MBMEMBCONTACT.MEMBER_WORKADDRESS,
+MBMEMBCONTACT.MEMBER_WORKTEL,
+LNREQLOAN.LOANREQUEST_AMT,
+CMCOOPCONSTANT.MANAGER,
+CMCOOPCONSTANT.OFFICE_FINANCE,
+CMCOOPCONSTANT.VICEMANAGER,
+'FT_READTBAHT(LOANREQUEST_AMT)'  as BAHT_TH,
+LNREQLOAN.LOANTYPE_CODE
+from MBMEMBMASTER
+left join MBMEMBCONTACT on  MBMEMBMASTER.MEMBER_NO = MBMEMBCONTACT.MEMBER_NO and  MBMEMBMASTER.COOP_ID = MBMEMBCONTACT.COOP_ID
+left join LNREQLOAN on  LNREQLOAN.COOP_ID = MBMEMBMASTER.COOP_ID and  LNREQLOAN.MEMBER_NO = MBMEMBMASTER.MEMBER_NO
+left join MBUCFPRENAME on MBUCFPRENAME.PRENAME_CODE = MBMEMBMASTER.PRENAME_CODE
+inner join CMCOOPCONSTANT on CMCOOPCONSTANT.coop_no = MBMEMBMASTER.coop_id
+where ( LNREQLOAN.LOANTYPE_CODE = $P{loantype_code})
+and MBMEMBMASTER.member_no = $P{as_membno}
+and ( LNREQLOAN.LOANREQUEST_docno= $P{loan_docno})]]>
+	</queryString>
+	<field name="MEMB_NAME" class="java.lang.String"/>
+	<field name="MEMBER_NO" class="java.lang.String"/>
+	<field name="MATE_NAME" class="java.lang.String"/>
+	<field name="COOP_NAME" class="java.lang.String"/>
+	<field name="DESCRIPTION" class="java.lang.String"/>
+	<field name="REFMEMBER_ADDRESS" class="java.lang.String"/>
+	<field name="REFMEMBER_TEL" class="java.lang.String"/>
+	<field name="REFMEMBER_RELATION" class="java.lang.String"/>
+	<field name="MEMBER_WORKADDRESS" class="java.lang.String"/>
+	<field name="MEMBER_WORKTEL" class="java.lang.String"/>
+	<field name="LOANREQUEST_AMT" class="java.math.BigDecimal"/>
+	<field name="MANAGER" class="java.lang.String"/>
+	<field name="OFFICE_FINANCE" class="java.lang.String"/>
+	<field name="VICEMANAGER" class="java.lang.String"/>
+	<field name="BAHT_TH" class="java.lang.String"/>
+	<field name="LOANTYPE_CODE" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="754">
+			<staticText>
+				<reportElement uuid="385223e2-ebea-4a2c-a74e-1a374195f787" x="54" y="31" width="541" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[ข้อ 10. หากข้าพเจ้าได้ย้ายที่อยู่จากภูมิลำเนาดังกล่าวข้างต้นในหนังสือกู้เงินนี้ หรือข้าพเจ้าจะเปลี่ยนแปลงที่อยู่ ข้าพเจ้าจะแจ้งให้สหกรณ์ทราบ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9b9f86c1-30e0-45ba-a5b7-a1d9b15974bf" x="40" y="46" width="555" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[โดยทันที หากข้าพเจ้าไม่แจ้งให้สหกรณ์ทราบข้าพเจ้ายินดีรับผิดในความเสียหายที่สหกรณ์ได้รับเป็นพฤติการณ์พิเศษอีกโสดหนึ่งด้วย]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="52f0390c-8a3f-4d00-a776-277ebc04c430" x="54" y="62" width="541" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[ข้อ 11. ตราบใดที่ข้าพเจ้ามีหนี้อยู่กับสหกรณ์ ข้าพเจ้าประสงค์ให้สหกรณ์นำเงินค่าหุ้น เงินปันผล เงินเฉลี่ยคืนหรือเงินอื่นใดที่ข้าพเจ้าได้รับไป]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7d051b18-fd1c-4449-bf7e-589bb0f64d7f" x="40" y="79" width="555" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[หักกลบลบหนี้เงินกู้ที่ข้าพเจ้ามีอยู่กับสหกรณ์ได้ เมื่อข้าพเจ้ามีสิทธิได้รับเงินดังกล่าวและให้ถือเอาข้อสัญญานี้เป็นเจตนาของข้าพเจ้าที่จะให้หักกลบ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="612793e6-8dcb-4235-b5aa-6c767eebeb2d" x="40" y="96" width="555" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[ลบหนี้โดยให้สหกรณ์มีอำนาจที่จะดำเนินการหักกลบลบหนี้ได้]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9c6bc868-c77b-492d-9dc0-b01dc7dab71f" x="54" y="113" width="539" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[ข้อ 12. ข้าพเจ้าได้ทำหนังสือยินยอมให้ผู้บังคับบัญชาหรือเจ้าหน้าที่ที่ทำหน้าที่จ่ายเงินได้รายเดือนและเงินได้อื่นของข้าพเจ้ามอบไว้ให้]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="a06526ed-7031-4a8f-a622-8dc0e9c97bd3" x="40" y="130" width="555" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[สหกรณ์และหน่วยงานต้นสังกัดเก็บไว้เป็นหลักฐานแล้ว]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0a320af3-18d5-4e08-a625-a7b1b2fdee45" x="54" y="148" width="541" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[ข้อ 13. ในกรณีที่ข้าพเจ้าเป็นผู้ผิดนัดชำระหนี้ ข้าพเจ้าตกลงยินยอมให้สหกรณ์ดำเนินการดังต่อไปนี้]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="838b9a98-2117-4233-bf13-56c5e8570178" x="75" y="165" width="520" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[13.1 ถ้าสหกรณ์ไม่สามารถแจ้งความเป็นหนี้ค้างชำระให้แก่ข้าพเจ้าได้ ข้าพเจ้าตกลงให้สหกรณ์แจ้งความเป็นหนี้ให้แก่]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ff3b7c56-0833-4045-b492-4ba82ec064a2" x="40" y="182" width="555" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[.......................................................................[คู่สมรส/บุตร(บรรลุนิติภาวะ)/บิดา/มารดา]หรือ.......................................................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="5a4ff879-23a0-43ec-98d8-28c82955ed71" x="40" y="196" width="555" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[[กรณีผู้กู้ โสดและบิดา/มารดา/มารดาเสียชีวิตแล้ว] ความสัมพันธ์กับผู้กู้.........................................................โทรศัพท์.........................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="7e5569e9-f704-42aa-96b8-12aa57a333c5" x="40" y="213" width="555" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[ที่อยู่ปัจจุบัน....................................................................................................................................................................................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="021d684e-9dc3-4a3a-9a25-5fe417549e2c" x="75" y="227" width="520" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[13.2 ถ้าสหกรณ์ไม่สามารถติดต่อข้าพเจ้าตามที่อยู่ในหนังสือกู้ฉบับนี้ ข้าพเจ้าตกลงให้ติดต่อไปยังสถานที่ต่อไปนี้]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="675844ae-afb0-42ca-90e1-d9b008fa819d" x="93" y="244" width="502" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[1. สถานที่อยู่ปัจจุบัน.............................................................................................โทร....................................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="947c8c6d-0f10-4ae8-8de9-b1b0684f9685" x="93" y="261" width="502" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[2. สถานที่ทำงาน...................................................................................................โทร...................................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f8b64781-7b55-4c0f-b347-5c68de3719a5" x="93" y="277" width="502" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[3. สถานที่.............................................................................................................โทร...................................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="16962a82-18f2-441c-a605-73b26c9270ea" x="75" y="294" width="520" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[13.3 ข้าพเจ้าตกลงให้สหกรณ์ทวงถามหนี้ได้เกินกว่า 1 ครั้งต่อวัน ในวันจันทร์ถึงวันศุกร์ ตั้งแต่เวลา 08.00 น. ถึงเวลา 20.00 น.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="67246eb2-e3f1-4917-af16-e8edd08af8c9" x="40" y="311" width="555" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[และในวันหยุดราชการ เวลา 08.00 น. ถึงเวลา 18.00 น. ทั้งนี้ให้เป็นไปตามที่กฏหมายกำหนดไว้]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="d2eec7dc-f8a0-4d13-9252-80605a5879d9" x="54" y="328" width="510" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[ข้าพเจ้าได้อ่านข้อความในหนังสือกู้เงินฉบับนี้โดยตลอดแล้วเห็นว่าถูกต้อง จึงได้ลงลายมือชื่อไว้เป็นสำคัญต่อหน้าพยาน]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="17f12a9e-5b2d-4e61-8749-5c6cb1603995" x="73" y="179" width="100" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DESCRIPTION}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="fa9fe574-d7b2-4109-9905-770e83b41695" x="295" y="193" width="100" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{REFMEMBER_RELATION}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="c2bd0eb5-39ee-457b-a3c2-95f4b4f42d7f" x="437" y="194" width="100" height="17"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{REFMEMBER_TEL}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="f43f7593-d59d-4e43-9926-ddcb25cf8268" x="116" y="210" width="146" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{REFMEMBER_ADDRESS}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="f8997d89-527d-4661-ace2-d728d91432d5" x="173" y="260" width="158" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MEMBER_WORKADDRESS}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="aa9703c2-a3da-4e62-870b-40302b8f1d1d" x="404" y="260" width="100" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MEMBER_WORKTEL}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a1a161d1-31d1-41bd-b503-f96985ef2cea" x="203" y="359" width="198" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[ลงชื่อ..........................................................ผู้กู้]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="05e60e6f-8bb5-4bcf-97bc-fc14643a382a" x="214" y="376" width="149" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[(...........................................................)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="86584aa6-4ac1-47d9-82ee-6e173227907a" x="47" y="401" width="231" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[(ลงชื่อ).....................................................กรรมการ/เจ้าหน้าที่]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="8b4d0085-2835-479c-b938-f9d0240d2908" x="61" y="418" width="217" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[(......................................................)ผู้ช่วยกิจการสหกรณ์]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="febc4acd-9600-4b12-8451-b12384b05327" x="337" y="418" width="217" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[(..........................................................)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0a4659d5-1e8f-4041-8d0e-ec4daaa06df0" x="323" y="401" width="231" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[(ลงชื่อ).....................................................พยาน(ผู้ค้ำประกัน)]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="66c33eb5-6a00-4c5e-a2e1-a436e89c75d4" x="249" y="374" width="100" height="17"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MEMB_NAME}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement uuid="b7a78dac-9775-4112-b752-88e15624b4b1" x="63" y="445" width="491" height="130"/>
+			</rectangle>
+			<staticText>
+				<reportElement uuid="c3dad36d-bb3b-4f1d-8d7b-0ffcc414c521" x="252" y="445" width="100" height="20"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[คำยินยอมของคู่สมรส]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="4d38f29a-600f-4a8b-a8a4-2213a98e2884" x="163" y="462" width="263" height="20"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA["เขียนที่"+' '+$F{COOP_NAME}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="99c946ab-eabc-482d-a7cb-a971c0ed703e" x="252" y="479" width="137" height="20"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[วันที่....................................................]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="96768dc7-ffa8-49c6-8ea3-811cb5991aa0" x="84" y="496" width="439" height="20"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[ข้าพเจ้า.......................................................................................  เป็นคู่สมรสของ.................................................. ได้ยินยอม]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ee619899-794c-463c-b3ee-89f4579ec9bf" x="84" y="513" width="439" height="20"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[ให้คู่สมรสของข้าพเจ้ากู้เงินจากสหกรณ์แห่งนี้ ตามหนังสือกู้เงินข้างต้นนี้และข้าพเจ้าได้ลงลายมือไว้เป็นสำคัญ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="bacc9aea-e9bf-4e45-8d91-8def8bc824f4" x="135" y="493" width="100" height="20"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MATE_NAME}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="f552e7c6-5fe0-431a-97b6-219e3f852f44" x="365" y="493" width="100" height="20"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MATE_NAME}== null ?" " :$F{MEMB_NAME}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="af1e702d-37b6-49e9-b8ed-21101e708f40" x="352" y="532" width="171" height="20"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[ลงชื่อ.....................................................คู่สมรส]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="640b9a39-6b02-42a8-9b79-b9a97cb2fef1" x="361" y="544" width="141" height="20"/>
+				<box>
+					<pen lineStyle="Dotted"/>
+					<topPen lineStyle="Dotted"/>
+					<leftPen lineStyle="Dotted"/>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+					<rightPen lineStyle="Dotted"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MATE_NAME}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a3ebe1b0-8575-47d7-b68a-f3622d841381" x="365" y="552" width="159" height="20"/>
+				<box>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[(.........................................................)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f7edaed0-9514-4a96-90cd-91e98ae197fe" x="64" y="578" width="189" height="16"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[ข้าพเจ้า............................................................ผู้กู้]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="25c5b2e8-37f3-4148-b61a-db98bdd2e087" x="253" y="578" width="163" height="16"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[ได้รับเงินกู้จำนวน...........................บาท]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c84589d6-9db6-4728-822a-0013cf867502" x="416" y="578" width="137" height="16"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[(......................................................)]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="dc0019d8-4109-4c4f-a133-45718092c099" x="102" y="575" width="114" height="16"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MEMB_NAME}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="b92cf58a-7455-45b6-8536-f7d5e501f0f7" x="322" y="575" width="56" height="16"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{LOANREQUEST_AMT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="229a8eae-c0a6-4a6d-8d60-62f7d1cffe22" x="434" y="575" width="100" height="16"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{BAHT_TH}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="980918d9-541d-49a6-9de1-cd896d952ae5" x="42" y="591" width="555" height="16"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[ตามหนังสือกู้เงินสำหรับเงินกู้สวัสดิการสมาคมฌาปนกิจสงเคราะห์สมาชิกชุมนุมสหกรณ์ออมทรัพย์ครูไทยและสมาคมฌาปนกิจสงเคราะห์ของชุมนุม]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="204d3744-4026-4846-9e89-57c3a4938b79" x="42" y="607" width="555" height="16"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[สหกรณ์ออมทรัพย์แห่งฉบับนี้ไปเป็นการถูกต้องแล้ว ณ วันที่ในหนังสือกู้เงินนี้]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="6fd64c47-b0c9-474a-8ea5-486b970dcce7" x="65" y="631" width="164" height="16"/>
+				<textElement>
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[ลงชื่อ...................................................ผู้กู้เงิน]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="78c1abd1-2e95-450b-b975-96784e5d6775" x="72" y="647" width="154" height="16"/>
+				<textElement>
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[(.....................................................)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3f328606-b44a-4e75-aff9-322602a78b9f" x="352" y="632" width="206" height="16"/>
+				<textElement>
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[ลงชื่อ..................................................เจ้าหน้าที่ผู้จ่ายเงิน]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b6cbab72-bf30-4d8f-a47e-5279a09383c5" x="364" y="647" width="159" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[(.........................................................)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c0be441a-b7d5-4709-9f80-3a148cfef5ec" x="352" y="668" width="206" height="16"/>
+				<textElement>
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[ลงชื่อ..................................................เจ้าหน้าที่ผู้ตรวจสอบ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e4b4e5d7-2059-436e-a886-9f81fa141d45" x="352" y="708" width="206" height="16"/>
+				<textElement>
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[ลงชื่อ..................................................ผู้จัดการ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="f7d10812-a51d-4127-8767-8b9dcc56f2a0" x="84" y="645" width="100" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MEMB_NAME}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="8184d35a-6fe5-4c74-a9b0-3602e00ec587" x="378" y="644" width="108" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{OFFICE_FINANCE}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="45aee774-2abd-4609-aeed-66a2e8c4531f" x="378" y="682" width="108" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{VICEMANAGER}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="f73baece-02e6-4234-b3a6-5ecd0b7614e6" x="378" y="719" width="108" height="16"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{MANAGER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d2d7adc6-6a87-4762-8e5e-46d8a628b61d" x="365" y="684" width="159" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[(.........................................................)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="77a3e484-d08b-4bfb-918a-79f68e9e20c4" x="365" y="721" width="159" height="16"/>
+				<box>
+					<bottomPen lineWidth="0.0" lineStyle="Dotted"/>
+				</box>
+				<textElement verticalAlignment="Top">
+					<font fontName="Angsana New" size="13"/>
+				</textElement>
+				<text><![CDATA[(.........................................................)]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="35">
+			<subreport>
+				<reportElement uuid="641cf1d2-97b2-419c-8c73-e8b994ef2205" x="0" y="0" width="200" height="20"/>
+				<subreportParameter name="loantype_code">
+					<subreportParameterExpression><![CDATA[$P{loantype_code}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="loan_docno">
+					<subreportParameterExpression><![CDATA[$P{loan_docno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="loan_mem">
+					<subreportParameterExpression><![CDATA[$F{MEMB_NAME}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["C:\\GCOOP_ALL\\CORE\\GCOOP\\iReport\\Reports\\irpt_loancontract_fcmt_coll_sub_ole.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

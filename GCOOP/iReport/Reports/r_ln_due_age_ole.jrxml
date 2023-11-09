@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="r_ln_due_age_ole" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="42324df1-0ee2-4f26-81f2-a4269ab9b052">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="as_coopid" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+isnull((SELECT
+count(distinct  mb.member_no) as member_no
+from mbmembmaster mb join lncontmaster l on mb.member_no = l.member_no and l.contract_status = 1
+where resign_status <> 1 and isnull(DATEDIFF(year, birth_date  , GETDATE()),0) < 50 and mb.membgroup_code not in ('401','402','403','404','405','406','407','408')),0) as count1,
+isnull((SELECT
+count(distinct  mb.member_no) as member_no
+from mbmembmaster mb join lncontmaster l on mb.member_no = l.member_no and l.contract_status = 1
+where resign_status <> 1 and DATEDIFF(year, birth_date  , GETDATE()) between 50 and 55 and mb.membgroup_code not in ('401','402','403','404','405','406','407','408')),0) as count2,
+isnull((SELECT
+count(distinct  mb.member_no) as member_no
+from mbmembmaster mb join lncontmaster l on mb.member_no = l.member_no and l.contract_status = 1
+where resign_status <> 1 and DATEDIFF(year, birth_date  , GETDATE()) between 56 and 60 and mb.membgroup_code not in ('401','402','403','404','405','406','407','408')),0) as count3,
+isnull((SELECT
+count(distinct  mb.member_no) as member_no
+from mbmembmaster mb join lncontmaster l on mb.member_no = l.member_no and l.contract_status = 1
+where resign_status <> 1 and (mb.membgroup_code in ('401','402','403','404','405','406','407','408') or DATEDIFF(year, birth_date  , GETDATE()) > 60)),0) as count4,
+isnull((SELECT
+sum(l.principal_balance) as principal_balance
+from mbmembmaster mb join lncontmaster l on mb.member_no = l.member_no and l.contract_status = 1
+where resign_status <> 1 and isnull(DATEDIFF(year, birth_date  , GETDATE()),0) < 50 and mb.membgroup_code not in ('401','402','403','404','405','406','407','408')),0) as sum1,
+isnull((SELECT
+sum(l.principal_balance) as principal_balance
+from mbmembmaster mb join lncontmaster l on mb.member_no = l.member_no and l.contract_status = 1
+where resign_status <> 1 and DATEDIFF(year, birth_date  , GETDATE()) between 50 and 55 and mb.membgroup_code not in ('401','402','403','404','405','406','407','408')),0) as sum2,
+isnull((SELECT
+sum(l.principal_balance) as principal_balance
+from mbmembmaster mb join lncontmaster l on mb.member_no = l.member_no and l.contract_status = 1
+where resign_status <> 1 and DATEDIFF(year, birth_date  , GETDATE()) between 56 and 60 and mb.membgroup_code not in ('401','402','403','404','405','406','407','408')),0) as sum3,
+isnull((SELECT
+sum(l.principal_balance) as principal_balance
+from mbmembmaster mb join lncontmaster l on mb.member_no = l.member_no and l.contract_status = 1
+where resign_status <> 1 and mb.coop_id = $P{as_coopid} and (mb.membgroup_code in ('401','402','403','404','405','406','407','408') or DATEDIFF(year, birth_date  , GETDATE()) > 60)),0) as sum4]]>
+	</queryString>
+	<field name="count1" class="java.lang.Integer"/>
+	<field name="count2" class="java.lang.Integer"/>
+	<field name="count3" class="java.lang.Integer"/>
+	<field name="count4" class="java.lang.Integer"/>
+	<field name="sum1" class="java.math.BigDecimal"/>
+	<field name="sum2" class="java.math.BigDecimal"/>
+	<field name="sum3" class="java.math.BigDecimal"/>
+	<field name="sum4" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="208" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="f1919a99-d696-4d16-8e34-aa0d27643ec4" x="0" y="17" width="555" height="25"/>
+				<textElement textAlignment="Center">
+					<font fontName="Angsana New" size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[รายงานรายละเอียดลูกหนี้สหกรณ์ตามช่วงอายุ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="64e25a0b-3f96-4c1a-ba68-546c63e9118c" x="30" y="55" width="119" height="45"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Angsana New" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[กลุ่มลูกหนี้]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="937125e4-6cfd-4deb-8e2f-28158be9a7d1" x="149" y="55" width="370" height="23"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Angsana New" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[หนี้ปกติ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="0685c945-e556-4183-9292-16d85ca581e3" x="149" y="78" width="185" height="23"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Angsana New" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[จำนวนสมาชิก (ราย)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="171c3b1f-48eb-4c37-a482-4bdb1bfa4838" x="334" y="78" width="185" height="23"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Angsana New" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[จำนวนเงิน (บาท)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="ca354c27-66ca-4bd3-b51e-5aa0ba28ab67" x="30" y="100" width="119" height="23"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Angsana New" size="16" isBold="false"/>
+				</textElement>
+				<text><![CDATA[อายุต่ำกว่า 50 ปี]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="81e2e275-5c56-4161-9cce-e9a92ade2f8c" x="30" y="123" width="119" height="23"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Angsana New" size="16" isBold="false"/>
+				</textElement>
+				<text><![CDATA[อายุ 50-55 ปี]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="84bb0620-3bd5-4320-b153-4b62ebeee113" x="30" y="146" width="119" height="23"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Angsana New" size="16" isBold="false"/>
+				</textElement>
+				<text><![CDATA[อายุ 56-60 ปี]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="51ce7255-f9eb-45b7-82fa-f1dd25617400" x="30" y="169" width="119" height="39"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Angsana New" size="16" isBold="false"/>
+				</textElement>
+				<text><![CDATA[เกษียณอายุราชการ/
+บำนาญ]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="8a774c67-08ef-4797-a536-694878e5be1f" x="149" y="101" width="185" height="22"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Angsana New" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{count1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="2aef11ed-af96-45e6-9c5e-01c1541a3b00" x="334" y="101" width="185" height="22"/>
+				<box rightPadding="3">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Angsana New" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sum1}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="f496bd27-27cf-41cc-958c-4072668e81bf" x="334" y="123" width="185" height="23"/>
+				<box rightPadding="3">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Angsana New" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sum2}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="40138d24-7547-4376-a23a-8b225a2abefd" x="149" y="123" width="185" height="23"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Angsana New" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{count2}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="2178e3bc-4a2e-4f81-b5d5-9c367cc2bfcb" x="334" y="146" width="185" height="23"/>
+				<box rightPadding="3">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Angsana New" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sum3}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="5b4e1bac-61a3-45ab-b0cc-cb9dc75cd93b" x="149" y="146" width="185" height="23"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Angsana New" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{count3}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="7c7546fe-31a3-459b-9ee2-fbf76ad41d13" x="334" y="169" width="185" height="39"/>
+				<box rightPadding="3">
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Angsana New" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sum4}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b11da5fb-c570-4e5d-9656-a287d9e19e88" x="149" y="169" width="185" height="39"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Angsana New" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{count4}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<summary>
+		<band height="23" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="ecebac28-d776-422b-ab0c-652c165d83d0" x="30" y="0" width="119" height="23"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Angsana New" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[รวมทั้งสิ้น]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement uuid="0bac8daa-1d15-4f6f-a423-9deb58b64021" x="149" y="0" width="185" height="23"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Angsana New" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{count1}+$F{count2}+$F{count3}+$F{count4}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00" isBlankWhenNull="true">
+				<reportElement uuid="f24cc66e-d03d-4512-8849-c81bf31d6148" x="334" y="0" width="185" height="23"/>
+				<box>
+					<topPen lineWidth="0.25"/>
+					<leftPen lineWidth="0.25"/>
+					<bottomPen lineWidth="0.25"/>
+					<rightPen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="Angsana New" size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sum1}+$F{sum2}+$F{sum3}+$F{sum4}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>
